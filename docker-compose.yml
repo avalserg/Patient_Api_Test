@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  patient_api_test:
+    image: ${DOCKER_REGISTRY-}patientapitest
+    container_name: Patient_Api_Test
+    build:
+      context: .
+      dockerfile: Patient_Api_Test/Dockerfile
+    
+
+  patients.database:
+    image: postgres:latest
+    container_name: Patients.Database
+    environment:
+      - POSTGRES_DB=patients
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+ 
